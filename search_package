@@ -1,0 +1,22 @@
+#!/bin/bash
+
+read -p "Digite o nome do pacote que deseja pesquisar: " package_name
+
+# Verifica se o pacote está disponível no apt
+apt_search_output=$(apt search "$package_name" 2>/dev/null)
+apt_available=$(echo "$apt_search_output" | grep -c "$package_name")
+
+# Verifica se o pacote está disponível no snap
+snap_find_output=$(snap find "$package_name" 2>/dev/null)
+snap_available=$(echo "$snap_find_output" | grep -c "$package_name")
+
+# Verifica se o pacote está disponível no Flathub
+flatpak_search_output=$(flatpak search "$package_name" 2>/dev/null)
+flatpak_available=$(echo "$flatpak_search_output" | grep -c "$package_name")
+
+# Imprime os resultados
+echo "Disponível no apt: $apt_available"
+echo "Disponível no snap: $snap_available"
+echo "Disponível no Flathub: $flatpak_available"
+
+
